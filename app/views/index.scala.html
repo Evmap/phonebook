@@ -1,0 +1,37 @@
+@(records: List[Record], recordForm: Form[Record])
+
+@import helper._
+
+@main("Record list") {
+<center><h2>Телефонная книга</h2>
+<h2>@records.size() Запись(ей)</h2>
+
+<ul>
+    @for(record <- records) {
+    <li>
+        @record.name
+        @record.phone
+        @record.mobilephone
+
+        @form(routes.Application.deleterecord(record.id)) {
+        <input type="submit" value="Удалить">
+        }
+    </li>
+    }
+</ul>
+
+<h2>Добавить новую запись</h2>
+
+  @form(routes.Application.newrecord()) {
+  <b>ИМЯ</b>
+  @inputText(recordForm("name"))
+  <b>Телефон</b>
+  @inputText(recordForm("phone"))
+  <b>Моб.телефон</b>
+  @inputText(recordForm("mobilephone"))
+<input type="submit" value="Создать">
+
+}
+    
+}
+</center>
