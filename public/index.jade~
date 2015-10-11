@@ -1,0 +1,45 @@
+doctype html
+html(lang="fr")
+  head
+    title My Own Bookmarks
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    
+
+  body
+    h1.text-center Моя записная книжка
+
+
+    table.table.table-bordered
+      tr
+        th
+          label ФИО:
+        th
+          label Домашний телефон:
+        th
+          label Мобильный телефон:
+        th 
+          label Действия:
+      tr
+        form(action="add", method="post")
+          td
+            input(type="text", name="name")
+          td
+            input(type="text", name="homephone")
+          td
+            input(type="text", name="phonenum")
+          td
+            input(type="submit", value="Добавить")
+       - for(record in phonebook) {
+      tr
+        td #{phonebook[record].name}
+          input(type="text", name="name").hidden
+        td #{phonebook[record].homephone}
+          input(type="text", name="homephone").hidden
+        td #{phonebook[record].phonenum}
+          input(type="text", name="phonenum").hidden
+        td
+          a(href="delete/#{phonebook[record].id}") delete
+        - }
+    
+    script(src="http://code.jquery.com/jquery-2.1.4.min.js")
+

@@ -1,0 +1,55 @@
+doctype html
+html(lang="fr")
+  head
+    title My Own Bookmarks
+    link(rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+    
+
+  body
+    h1.text-center Моя записная книжка
+
+
+    table.table.table-bordered
+      tr.success
+        th
+          label ФИО:
+        th
+          label Домашний телефон:
+        th
+          label Мобильный телефон:
+        th 
+          label Действия:
+      tr.info
+        form(action="add", method="post").form-group
+          td
+            input(type="text", name="name").form-control
+          td
+            input(type="text", name="homephone").form-control
+          td
+            input(type="text", name="phonenum").form-control
+          td
+            input(type="submit", value="Добавить").btn.btn-primary
+       - for(record in phonebook) {
+      tr
+        td 
+          strong(name="str1#{phonebook[record].id}") #{phonebook[record].name}
+          input(type="text", name="EDname#{phonebook[record].id}", style="display: none",value="#{phonebook[record].name}", data-bind="value: EDname").change.form-control.e1
+        td 
+          strong(name="str2#{phonebook[record].id}") #{phonebook[record].homephone}
+          input(type="text", name="EDhomephone#{phonebook[record].id}", style="display: none",value="#{phonebook[record].homephone}" data-bind="value: EDhomephone").change.form-control.e2
+        td 
+          strong(name="str3#{phonebook[record].id}") #{phonebook[record].phonenum}
+          input(type="text", name="EDphonenum#{phonebook[record].id}", style="display: none",value="#{phonebook[record].phonenum}" data-bind="value: EDphonenum").change.form-control.e3
+        td
+          a(href="delete/#{phonebook[record].id}" style="color:white")
+            button.btn.btn-danger Удалить
+          button.changeb.change.btn.btn-danger(name="changeb#{phonebook[record].id}" onClick="changeRec(#{phonebook[record].id})") Изменить
+          a(href="edit/#{phonebook[record].id}?" style="color:white" onClick="saveChange(#{phonebook[record].id})").save
+            button.save.change.btn.btn-danger(name="save#{phonebook[record].id}" style="display: none") Сохранить изменения
+        - }
+
+    script(src="http://code.jquery.com/jquery-2.1.4.min.js")
+    script(src="http://knockoutjs.com/downloads/knockout-3.3.0.js")
+    script(src="script.js")
+
+
