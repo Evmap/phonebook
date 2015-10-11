@@ -96,7 +96,7 @@ app.get('/edit/:id', function(req, res) {
     });
 });
 
-var port = process.env.PORT || 9250;
+var port = process.env.PORT || 5000;
 var host = process.env.HOST || "127.0.0.1";
 
 

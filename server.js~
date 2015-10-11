@@ -6,6 +6,7 @@ var http = require('http'),
     db = new sqlite3.Database('phonebook.db');
 
 // Использовать Jade для рендера темплейтов
+app.use(express.static('public'));
 app.set('views', __dirname + '/public');
 app.engine('.html', require('jade').__express);
 
@@ -69,6 +70,23 @@ app.post('/add', function(req, res) {
 //route который будет обрабатывать удаление новой записи
 app.get('/delete/:id', function(req, res) {
     db.run("DELETE FROM phonebook WHERE id='" + req.params.id + "'", function(err) {
+        if(err !== null) {
+            res.status(500).send("An error has occurred -- " + err);
+        }
+        else {
+            res.redirect('back');
+        }
+    });
+});
+
+app.get('/edit/:id', function(req, res) {
+    EDname = req.query.EDname;
+    EDhomephone = req.query.EDhomephone;
+    EDphonenum = req.query.EDphonenum;
+    id=req.params.id;
+        console.log("%s",id);
+    sqlRequest = "UPDATE 'phonebook' SET name='"+ EDname + "', homephone='" + EDhomephone + "', phonenum='" + EDphonenum + "' WHERE id='" +id + "'";
+    db.run(sqlRequest, function(err) {
         if(err !== null) {
             res.status(500).send("An error has occurred -- " + err);
         }
